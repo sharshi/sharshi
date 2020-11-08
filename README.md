@@ -1,1 +1,1 @@
-![dino](./dino.gif)
+![blue](./blue.png)
