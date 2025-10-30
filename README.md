@@ -43,3 +43,5 @@ sequenceDiagram
     %% Optional EOL
     M-->>S: Mark support/x.y.x as EOL
 ```
+
+jk. ssh onto the server and edit files there.
