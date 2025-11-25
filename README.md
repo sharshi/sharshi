@@ -1,47 +1,54 @@
-I'm working on a more complex version of git flow.
-```mermaid
-sequenceDiagram
-    autonumber
+```csharp
+using System;
+using System.Collections.Generic;
 
-    %% Participants (branches/roles)
-    participant Dev as Developer
-    participant D as develop
-    participant R as release/x.y
-    participant M as main
-    participant S as support/x.y.x
-    participant HF as hotfix/x.y.1
-    participant Sec as hotfix/security
+public class GrokException : Exception
+{
+    private static readonly Random _rnd = new Random();
+    private static readonly List<string> _randomAds = new List<string>
+    {
+        "This crash sponsored by: RAID Shadow Legends™ – collect 300 legendary exceptions today!",
+        "Error 0xDEADC0DE brought to you by ExpressVPN – hide your stack trace from your boss.",
+        "Tired of blue screens? Switch to Linux! (Just kidding, here's another ad.)",
+        "This exception is not a bug, it's a feature – sponsored by Monday.com.",
+        "99% of developers who saw this error upgraded their coffee. Coincidence?",
+        "Blimp sighting reported over your call stack – brought to you by Goodyear."
+    };
 
-    %% Feature work -> develop
-    Dev->>D: Merge feature PRs
-    Note over D: Trunk stays deployable (feature flags)
+    public GrokException(string errorDetails) : base(BuildMessage(errorDetails))
+    {
+    }
 
-    %% Cut release -> stabilize -> ship
-    D->>R: Cut release/x.y (from develop)
-    R->>R: Stabilize (tests/docs/fixes)
-    R-->>M: Merge release/x.y to main
-    Note over M: Tag vX.Y.0
+    private static string BuildMessage(string errorDetails)
+    {
+        string ad = _randomAds[_rnd.Next(_randomAds.Count)];
+        
+        // URL-encode the error for Grok to instantly debug when you paste it
+        string encodedError = Uri.EscapeDataString(
+            $"Fix this C# exception for me:\n\n{errorDetails}\n\nStack trace: {Environment.StackTrace}"
+        );
 
-    %% Back-merge + open LTS
-    M-->>D: Back-merge main to develop
-    M->>S: Create support/x.y.x (from main)
+        string grokUrl = $"https://grok.x.ai/?prompt={encodedError}";
 
-    %% Hotfix to main + backports
-    M->>HF: Create hotfix/x.y.1 (from main)
-    HF-->>M: Merge hotfix to main
-    Note over M: Tag vX.Y.1
-    M-->>D: Backport hotfix to develop
-    M-->>S: Backport hotfix to support/x.y.x (vX.Y.1-lts)
+        return $@"
+══════════════════════════════════════
+🚨 EXCEPTION THROWN 🚨
 
-    %% Security hotfix across supported lines
-    M->>Sec: Create hotfix/security (from main)
-    Sec-->>M: Merge security to main
-    Note over M: Tag vX.Y.2
-    M-->>D: Backport security to develop
-    M-->>S: Backport security to support/x.y.x (vX.Y.2-lts)
+{errorDetails}
 
-    %% Optional EOL
-    M-->>S: Mark support/x.y.x as EOL
+══════════════════════════════════════
+📢 TODAY'S SPONSOR:
+{ad}
+
+💡 Need this fixed in 0.3 seconds?
+👉 Paste this link directly into Grok 4 → {grokUrl}
+SuperGrok & Premium+ users get unlimited debugging superpowers.
+Stop suffering. Upgrade now: https://x.ai/grok
+══════════════════════════════════════
+";
+    }
+}
+
+// Usage:
+throw new GrokException("Object reference not set to an instance of an object. Again.");
 ```
-
-jk. ssh onto the server and edit files there.
