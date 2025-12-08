@@ -37,11 +37,11 @@ public class GrokException : Exception
 {errorDetails}
 
 ══════════════════════════════════════
-📢 TODAY'S SPONSOR:
+TODAY'S SPONSOR:
 {ad}
 
-💡 Need this fixed in 0.3 seconds?
-👉 Paste this link directly into Grok 4 → {grokUrl}
+Need this fixed in 0.3 seconds?
+Paste this link directly into Grok 4 → {grokUrl}
 SuperGrok & Premium+ users get unlimited debugging superpowers.
 Stop suffering. Upgrade now: https://x.ai/grok
 ══════════════════════════════════════
