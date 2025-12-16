@@ -7,7 +7,6 @@ public class GrokException : Exception
     private static readonly Random _rnd = new Random();
     private static readonly List<string> _randomAds = new List<string>
     {
-        "This crash sponsored by: RAID Shadow Legends™ – collect 300 legendary exceptions today!",
         "Error 0xDEADC0DE brought to you by ExpressVPN – hide your stack trace from your boss.",
         "Tired of blue screens? Switch to Linux! (Just kidding, here's another ad.)",
         "This exception is not a bug, it's a feature – sponsored by Monday.com.",
